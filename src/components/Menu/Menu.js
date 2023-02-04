@@ -6,9 +6,11 @@ import React from "react";
 function Menu() {
   const [data, setData] = React.useState([]);
 
-  fetch("https://63de555b9fa0d60060fce0cd.mockapi.io/api/items")
-    .then((response) => response.json())
-    .then((json) => setData(json));
+  React.useEffect(() => {
+    fetch("https://63de555b9fa0d60060fce0cd.mockapi.io/api/items")
+      .then((response) => response.json())
+      .then((json) => setData(json));
+  }, []);
 
   return (
     <div className="content__items">
