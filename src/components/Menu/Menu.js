@@ -1,17 +1,13 @@
 import s from "./Menu.module.css";
 import PizzaBlock from "./PizzaBlock/PizzaBlock";
+import pizzas from "../../assets/pizzas.json";
 
 function Menu() {
   return (
     <div className="content__items">
-      <PizzaBlock />
-      <PizzaBlock />
-      <PizzaBlock />
-      <PizzaBlock />
-      <PizzaBlock />
-      <PizzaBlock />
-      <PizzaBlock />
-      <PizzaBlock />
+      {pizzas.map((p) => {
+        return <PizzaBlock {...p} key={p.id} />;
+      })}
     </div>
   );
 }
