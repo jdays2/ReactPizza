@@ -1,7 +1,8 @@
 import styles from "./NotFound.module.css";
+import NotFoundBlockInfo from "../../components/NotFoundBlock/NotFoundBlock";
 
 function NotFound() {
-  return <h2>{"Ничего не найдено :("}</h2>;
+  return <NotFoundBlockInfo />;
 }
 
 export default NotFound;

@@ -15,7 +15,7 @@ function App() {
           <Routes>
             <Route path={"/"} element={<Home />} />
             <Route path={"/cart"} element={<Cart />} />
-            <Route path={"/notfound"} element={<NotFound />} />
+            <Route path={"*"} element={<NotFound />} />
           </Routes>
         </div>
       </div>
