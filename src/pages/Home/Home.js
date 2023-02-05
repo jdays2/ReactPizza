@@ -30,9 +30,6 @@ function Home() {
         {isLoading
           ? [...new Array(6)].map((_, i) => <PizzaBlockSkeleton key={i} />)
           : data.map((p) => <PizzaBlock {...p} key={p.id} />)}
-        {/* {data.map((p) => {
-        return <PizzaBlock {...p} key={p.id} />;
-      })} */}
       </div>
     </div>
   );
