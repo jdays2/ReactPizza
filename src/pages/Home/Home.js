@@ -20,7 +20,7 @@ function Home() {
   }, []);
 
   return (
-    <>
+    <div className="container">
       <div className="content__top">
         <Categories />
         <Sort />
@@ -34,7 +34,7 @@ function Home() {
         return <PizzaBlock {...p} key={p.id} />;
       })} */}
       </div>
-    </>
+    </div>
   );
 }
 
