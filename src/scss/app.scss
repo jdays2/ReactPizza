@@ -44,6 +44,14 @@ body {
     }
   }
 
+  .content-store__items {
+    display: block;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+  }
+
   &__top {
     display: flex;
     align-items: center;
