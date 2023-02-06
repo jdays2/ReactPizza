@@ -30,7 +30,7 @@ body {
   &__items {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     @media (max-width: 1400px) {
@@ -42,6 +42,14 @@ body {
     @media (max-width: 780px) {
       grid-template-columns: repeat(1, 1fr);
     }
+  }
+
+  .content-store__items {
+    display: block;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
   }
 
   &__top {

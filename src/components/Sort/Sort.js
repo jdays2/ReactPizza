@@ -1,13 +1,15 @@
 import React from "react";
 
-function Sort() {
+function Sort({ value, setSort }) {
   const [open, setOpen] = React.useState(false);
-  const sortList = ["популярности", "цене", "алфавиту"];
-  const [activeList, setActiveList] = React.useState(0);
-  const selectedList = sortList[activeList];
+  const sortList = [
+    { name: "популярности", sort: "rating" },
+    { name: "цене", sort: "price" },
+    { name: "алфавиту", sort: "title" },
+  ];
 
-  const closeSelectedList = (s, i) => {
-    setActiveList(i);
+  const closeSelectedList = (sort) => {
+    setSort(sort);
     setOpen(false);
   };
 
@@ -32,7 +34,7 @@ function Sort() {
             setOpen(!open);
           }}
         >
-          {selectedList}
+          {value.name}
         </span>
       </div>
       {open && (
@@ -40,13 +42,13 @@ function Sort() {
           <ul>
             {sortList.map((s, i) => (
               <li
-                className={activeList === i ? "active" : ""}
+                className={value.sort === s.sort ? "active" : ""}
                 key={i}
                 onClick={() => {
-                  closeSelectedList(s, i);
+                  closeSelectedList(s);
                 }}
               >
-                {s}
+                {s.name}
               </li>
             ))}
           </ul>
