@@ -1,13 +1,13 @@
 import s from "./Categories.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrendCategoryId } from "../../redux/slices/filterSlice";
+import { setCurrendCategoryId } from "../../redux/slices/CategorySlice";
 
 import React from "react";
 
 function Categories() {
-  const categories = useSelector((state) => state.filter.categories);
+  const categories = useSelector((state) => state.category.categories);
   const currentCategory = useSelector(
-    (state) => state.filter.currentCategoryId
+    (state) => state.category.currentCategoryId
   );
   const dispatch = useDispatch();
 

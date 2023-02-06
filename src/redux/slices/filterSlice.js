@@ -1,26 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  categories: [
-    "Все",
-    "Мясные",
-    "Вегетарианская",
-    "Гриль",
-    "Острые",
-    "Закрытые",
+  sortList: [
+    { name: "популярности", sort: "rating" },
+    { name: "цене", sort: "price" },
+    { name: "алфавиту", sort: "title" },
   ],
-  currentCategoryId: 0,
+  currentSortList: { name: "популярности", sort: "rating" },
+  isOpen: false,
 };
 
 export const filterSlice = createSlice({
   name: "filter",
   initialState,
   reducers: {
-    setCurrendCategoryId(state, action) {
-      state.currentCategoryId = action.payload;
+    setSortList(state, action) {
+      state.currentSortList = action.payload;
+    },
+    isOpen(state, action) {
+      state.isOpen = action.payload;
     },
   },
 });
 
-export const { setCurrendCategoryId } = filterSlice.actions;
+export const { setSortList, isOpen } = filterSlice.actions;
 export default filterSlice.reducer;

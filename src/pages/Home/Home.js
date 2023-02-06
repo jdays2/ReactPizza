@@ -18,7 +18,7 @@ function Home({ searchValue }) {
   });
   const [currendPage, setCurrendPage] = React.useState(1);
 
-  const categoryId = useSelector((state) => state.filter.currentCategoryId);
+  const categoryId = useSelector((state) => state.category.currentCategoryId);
 
   const category = categoryId > 0 ? `category=${categoryId}&` : "";
   const paggination = `&page=${currendPage}&limit=4`;
