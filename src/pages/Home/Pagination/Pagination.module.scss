@@ -1,0 +1,33 @@
+.root {
+  display: flex;
+  margin-top: 20px;
+  margin-left: 55px;
+  a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+
+    font-size: 20px;
+
+    border-radius: 30px;
+    border: 1px solid#fe5f1e;
+    color: #fe5f1e;
+
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out;
+  }
+
+  :global {
+    .selected {
+      a {
+        background-color: #fe5f1e;
+        color: #fff;
+      }
+    }
+  }
+}
