@@ -1,17 +1,12 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setSortList, isOpen } from "../../redux/slices/FilterSlice";
 
-function Sort({ value, setSort }) {
-  const [open, setOpen] = React.useState(false);
-  const sortList = [
-    { name: "популярности", sort: "rating" },
-    { name: "цене", sort: "price" },
-    { name: "алфавиту", sort: "title" },
-  ];
-
-  const closeSelectedList = (sort) => {
-    setSort(sort);
-    setOpen(false);
-  };
+function Sort() {
+  const dispatch = useDispatch();
+  const open = useSelector((state) => state.filter.isOpen);
+  const sortList = useSelector((state) => state.filter.sortList);
+  const currentList = useSelector((state) => state.filter.currentSortList);
 
   return (
     <div className="sort">
@@ -31,10 +26,10 @@ function Sort({ value, setSort }) {
         <b>Сортировка по:</b>
         <span
           onClick={() => {
-            setOpen(!open);
+            dispatch(isOpen(!open));
           }}
         >
-          {value.name}
+          {currentList.name}
         </span>
       </div>
       {open && (
@@ -42,10 +37,11 @@ function Sort({ value, setSort }) {
           <ul>
             {sortList.map((s, i) => (
               <li
-                className={value.sort === s.sort ? "active" : ""}
+                className={currentList.sort === s.sort ? "active" : ""}
                 key={i}
                 onClick={() => {
-                  closeSelectedList(s);
+                  dispatch(isOpen(!open));
+                  dispatch(setSortList(s));
                 }}
               >
                 {s.name}
