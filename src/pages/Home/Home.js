@@ -13,6 +13,7 @@ function Home({ searchValue }) {
   const [isLoading, setIsLoading] = React.useState(true);
   const [currendPage, setCurrendPage] = React.useState(1);
 
+  const currentValue = useSelector((state) => state.search.currentValue);
   const categoryId = useSelector((state) => state.category.currentCategoryId);
   const sort = useSelector((state) => state.filter.currentSortList.sort);
   const category = categoryId > 0 ? `category=${categoryId}&` : "";
@@ -22,14 +23,14 @@ function Home({ searchValue }) {
     setIsLoading(true);
     window.scroll(0, 0);
     fetch(
-      `https://63de555b9fa0d60060fce0cd.mockapi.io/api/items?${category}sortBy=${sort}&search=${searchValue}${paggination}`
+      `https://63de555b9fa0d60060fce0cd.mockapi.io/api/items?${category}sortBy=${sort}&search=${currentValue}${paggination}`
     )
       .then((data) => data.json())
       .then((state) => {
         setData(state);
         setIsLoading(false);
       });
-  }, [category, sort, searchValue, paggination]);
+  }, [category, sort, currentValue, paggination]);
 
   const pizzas = data.map((p) => <PizzaBlock {...p} key={p.id} />);
   const skeleton = [...new Array(6)].map((_, i) => (
