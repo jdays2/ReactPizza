@@ -11,6 +11,8 @@ export const searchSlice = createSlice({
   reducers: {
     setCurrentValue(state, action) {
       return produce(state, (draft) => {
+        console.log(action.payload);
+
         draft.currentValue = action.payload;
       });
     },
