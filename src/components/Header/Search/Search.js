@@ -8,40 +8,44 @@ import debounce from "lodash.debounce";
 
 function Search() {
   const dispatch = useDispatch();
-  const currentValue = useSelector((state) => state.search.currentValue);
-  const importRef = React.useRef();
+  const [value, setValue] = React.useState("");
 
-  const console = console.log("hello");
+  const inputRef = React.useRef();
 
-  const testDeb = _.debounce(console, 500);
-
-  const onHandle = (event) => {
-    dispatch(setCurrentValue(event.target.value));
-    importRef.current.focus();
-    testDeb();
+  const clearSearchValue = () => {
+    setValue("");
+    updateSearchValue("");
+    inputRef.current.focus();
   };
+
+  const onChangeInput = (event) => {
+    setValue(event.target.value);
+    updateSearchValue(event.target.value);
+  };
+
+  const updateSearchValue = React.useCallback(
+    debounce((str) => {
+      dispatch(setCurrentValue(str));
+    }, 300),
+    []
+  );
 
   return (
     <div className={styles.root}>
       <img className={styles.searchIcon} src={searchIcon} />
       <input
-        ref={importRef}
+        ref={inputRef}
         className={styles.search}
         placeholder="Поиск любимой пиццы"
-        onChange={(event) => {
-          onHandle(event);
-        }}
-        value={currentValue}
+        onChange={onChangeInput}
+        value={value}
       />
 
-      {currentValue === "" ? null : (
+      {value === "" ? null : (
         <img
           className={styles.closeIcon}
           src={closeIcon}
-          onClick={() => {
-            dispatch(setCurrentValue(""));
-            importRef.current.focus();
-          }}
+          onClick={clearSearchValue}
         />
       )}
     </div>
