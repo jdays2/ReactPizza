@@ -8,8 +8,15 @@ import debounce from "lodash.debounce";
 
 function Search() {
   const dispatch = useDispatch();
-  // const currentValue = useSelector((state) => state.search.currentValue);
   const [value, setValue] = React.useState("");
+
+  const inputRef = React.useRef();
+
+  const clearSearchValue = () => {
+    setValue("");
+    updateSearchValue("");
+    inputRef.current.focus();
+  };
 
   const onChangeInput = (event) => {
     setValue(event.target.value);
@@ -27,7 +34,7 @@ function Search() {
     <div className={styles.root}>
       <img className={styles.searchIcon} src={searchIcon} />
       <input
-        // ref={importRef}
+        ref={inputRef}
         className={styles.search}
         placeholder="Поиск любимой пиццы"
         onChange={onChangeInput}
@@ -38,10 +45,7 @@ function Search() {
         <img
           className={styles.closeIcon}
           src={closeIcon}
-          onClick={() => {
-            dispatch(setCurrentValue(""));
-            // importRef.current.focus();
-          }}
+          onClick={clearSearchValue}
         />
       )}
     </div>
