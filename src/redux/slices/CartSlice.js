@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   items: [],
   totalPrice: 0,
+  totalItems: 0,
 };
 
 export const cartSlice = createSlice({
@@ -22,15 +23,55 @@ export const cartSlice = createSlice({
       state.totalPrice = state.items.reduce((total, item) => {
         return item.price * item.count + total;
       }, 0);
+      state.totalItems = state.items.reduce((total, item) => {
+        return total + item.count;
+      }, 0);
     },
     removeAllItems(state) {
       state.items = [];
+      state.totalItems = 0;
+      state.totalPrice = 0;
     },
-    remoteItem(state, action) {
+    removeItem(state, action) {
       state.items = state.items.filter((e) => e.id !== action.payload);
+      state.totalPrice = state.items.reduce((total, item) => {
+        return item.price * item.count + total;
+      }, 0);
+      state.totalItems = state.items.reduce((total, item) => {
+        return total + item.count;
+      }, 0);
+    },
+    plusItem(state, action) {
+      const findeItem = state.items.find((obj) => obj.id === action.payload);
+      if (findeItem) {
+        findeItem.count++;
+      }
+      state.totalPrice = state.items.reduce((total, item) => {
+        return item.price * item.count + total;
+      }, 0);
+      state.totalItems = state.items.reduce((total, item) => {
+        return total + item.count;
+      }, 0);
+    },
+    minusItem(state, action) {
+      const findeItem = state.items.find((obj) => obj.id === action.payload);
+      if (findeItem) {
+        findeItem.count--;
+      }
+      if (findeItem.count < 0) {
+        state.items = state.items.filter((e) => e !== findeItem);
+      }
+
+      state.totalPrice = state.items.reduce((total, item) => {
+        return item.price * item.count + total;
+      }, 0);
+      state.totalItems = state.items.reduce((total, item) => {
+        return total + item.count;
+      }, 0);
     },
   },
 });
 
-export const { addItems } = cartSlice.actions;
+export const { addItems, removeAllItems, removeItem, minusItem, plusItem } =
+  cartSlice.actions;
 export default cartSlice.reducer;
