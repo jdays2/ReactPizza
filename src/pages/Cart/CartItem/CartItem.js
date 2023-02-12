@@ -7,6 +7,12 @@ import { useDispatch } from "react-redux";
 function CartItem({ id, title, type, sizes, imageUrl, price, count }) {
   const dispatch = useDispatch();
 
+  const deleteItem = (id) => {
+    if (window.confirm("Вы уверены, что хотите удалить данный товар?")) {
+      dispatch(removeItem(id));
+    }
+  };
+
   return (
     <div className="content-store__items">
       <div className="cart__item">
@@ -23,7 +29,7 @@ function CartItem({ id, title, type, sizes, imageUrl, price, count }) {
           <div
             className="button button--outline button--circle cart__item-count-minus"
             onClick={() => {
-              dispatch(minusItem(id));
+              dispatch(plusItem({ id, value: false }));
             }}
           >
             <svg
@@ -47,7 +53,7 @@ function CartItem({ id, title, type, sizes, imageUrl, price, count }) {
           <div
             className="button button--outline button--circle cart__item-count-plus"
             onClick={() => {
-              dispatch(plusItem(id));
+              dispatch(plusItem({ id, value: true }));
             }}
           >
             <svg
@@ -74,7 +80,7 @@ function CartItem({ id, title, type, sizes, imageUrl, price, count }) {
         <div
           className="cart__item-remove"
           onClick={() => {
-            dispatch(removeItem(id));
+            deleteItem(id);
           }}
         >
           <div className="button button--outline button--circle">
