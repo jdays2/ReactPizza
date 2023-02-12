@@ -42,26 +42,15 @@ export const cartSlice = createSlice({
       }, 0);
     },
     plusItem(state, action) {
-      const findeItem = state.items.find((obj) => obj.id === action.payload);
-      if (findeItem) {
+      const findeItem = state.items.find((obj) => obj.id === action.payload.id);
+      if (findeItem && action.payload.value) {
         findeItem.count++;
-      }
-      state.totalPrice = state.items.reduce((total, item) => {
-        return item.price * item.count + total;
-      }, 0);
-      state.totalItems = state.items.reduce((total, item) => {
-        return total + item.count;
-      }, 0);
-    },
-    minusItem(state, action) {
-      const findeItem = state.items.find((obj) => obj.id === action.payload);
-      if (findeItem) {
+      } else {
         findeItem.count--;
       }
       if (findeItem.count < 0) {
         state.items = state.items.filter((e) => e !== findeItem);
       }
-
       state.totalPrice = state.items.reduce((total, item) => {
         return item.price * item.count + total;
       }, 0);
