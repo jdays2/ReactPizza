@@ -7,7 +7,7 @@ import Sort from "../../components/Sort/Sort";
 import React from "react";
 import Pagination from "./Pagination/Pagination";
 import { useSelector } from "react-redux";
-import { fetchPizza } from "../../redux/slices/PizzaSlice";
+import { getPizzas } from "../../redux/slices/PizzaSlice";
 import { useDispatch } from "react-redux";
 
 function Home({ searchValue }) {
@@ -20,13 +20,14 @@ function Home({ searchValue }) {
   const sort = useSelector((state) => state.filter.currentSortList.sort);
   const category = categoryId > 0 ? `category=${categoryId}&` : "";
   const paggination = `&page=${currendPage}&limit=4`;
+  const { status, items } = useSelector((state) => state.pizza);
 
   React.useEffect(() => {
-    dispatch(fetchPizza({ sort, currentValue, paggination, category }));
+    dispatch(getPizzas({ sort, currentValue, paggination, category }));
     window.scroll(0, 0);
-  }, []);
+  }, [sort, currentValue, paggination, category]);
 
-  const pizzas = data.map((p) => <PizzaBlock {...p} key={p.id} />);
+  const pizzas = items.map((p) => <PizzaBlock {...p} key={p.id} />);
   const skeleton = [...new Array(6)].map((_, i) => (
     <PizzaBlockSkeleton key={i} />
   ));
@@ -39,7 +40,9 @@ function Home({ searchValue }) {
           <Sort />
         </div>
         <h2 className="content__title">Все пиццы</h2>
-        <div className="content__items">{isLoading ? skeleton : pizzas}</div>
+        <div className="content__items">
+          {status === "pending" ? skeleton : pizzas}
+        </div>
       </div>
       <Pagination setCurrendPage={setCurrendPage} />
     </div>

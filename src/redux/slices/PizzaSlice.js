@@ -7,13 +7,16 @@ const initialState = {
   items: [],
 };
 
-const getPizzas = createAsyncThunk("pizza/fetchPizza", async (params) => {
-  const { sort, currentValue, paggination, category } = params;
-  const { data } = await axios.get(
-    `https://63de555b9fa0d60060fce0cd.mockapi.io/api/items?${category}sortBy=${sort}&search=${currentValue}${paggination}`
-  );
-  return data;
-});
+export const getPizzas = createAsyncThunk(
+  "pizza/fetchPizza",
+  async (params) => {
+    const { sort, currentValue, paggination, category } = params;
+    const { data } = await axios.get(
+      `https://63de555b9fa0d60060fce0cd.mockapi.io/api/items?${category}sortBy=${sort}&search=${currentValue}${paggination}`
+    );
+    return data;
+  }
+);
 
 export const pizzaSlice = createSlice({
   name: "pizza",
@@ -35,5 +38,5 @@ export const pizzaSlice = createSlice({
   },
 });
 
-export const { fetchPizza } = pizzaSlice.actions;
+export const {} = pizzaSlice.actions;
 export default pizzaSlice.reducer;
