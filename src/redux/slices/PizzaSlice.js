@@ -35,5 +35,5 @@ export const pizzaSlice = createSlice({
   },
 });
 
-export const { getPizzas } = pizzaSlice.actions;
+export const { fetchPizza } = pizzaSlice.actions;
 export default pizzaSlice.reducer;

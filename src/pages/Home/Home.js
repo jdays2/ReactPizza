@@ -7,7 +7,7 @@ import Sort from "../../components/Sort/Sort";
 import React from "react";
 import Pagination from "./Pagination/Pagination";
 import { useSelector } from "react-redux";
-import { getPizzas } from "../../redux/slices/PizzaSlice";
+import { fetchPizza } from "../../redux/slices/PizzaSlice";
 import { useDispatch } from "react-redux";
 
 function Home({ searchValue }) {
@@ -22,9 +22,9 @@ function Home({ searchValue }) {
   const paggination = `&page=${currendPage}&limit=4`;
 
   React.useEffect(() => {
-    dispatch(getPizzas({ sort, currentValue, paggination, category }));
+    dispatch(fetchPizza({ sort, currentValue, paggination, category }));
     window.scroll(0, 0);
-  }, [category, sort, currentValue, paggination]);
+  }, []);
 
   const pizzas = data.map((p) => <PizzaBlock {...p} key={p.id} />);
   const skeleton = [...new Array(6)].map((_, i) => (
