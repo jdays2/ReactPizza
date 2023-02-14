@@ -9,10 +9,6 @@ function PizzaNotFound() {
           Ошибка
         </h1>
         <p>К сожалению, возникла ошибка при запросе на сервер.</p>
-        <img
-          className={styles.img}
-          src="https://www.dominos.bg/images/error404.png"
-        />
       </div>
     </div>
   );

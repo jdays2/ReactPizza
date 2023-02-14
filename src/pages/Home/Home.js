@@ -11,9 +11,7 @@ import { getPizzas } from "../../redux/slices/PizzaSlice";
 import { useDispatch } from "react-redux";
 import PizzaNotFound from "./PizzasNotFound/PizzasNotFound";
 
-function Home({ searchValue }) {
-  const [data, setData] = React.useState([]);
-
+function Home() {
   const [currendPage, setCurrendPage] = React.useState(1);
   const dispatch = useDispatch();
   const currentValue = useSelector((state) => state.search.currentValue);
