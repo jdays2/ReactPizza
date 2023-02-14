@@ -9,6 +9,7 @@ import Pagination from "./Pagination/Pagination";
 import { useSelector } from "react-redux";
 import { getPizzas } from "../../redux/slices/PizzaSlice";
 import { useDispatch } from "react-redux";
+import PizzaNotFound from "./PizzasNotFound/PizzasNotFound";
 
 function Home({ searchValue }) {
   const [data, setData] = React.useState([]);
@@ -42,6 +43,7 @@ function Home({ searchValue }) {
         <h2 className="content__title">Все пиццы</h2>
         <div className="content__items">
           {status === "pending" ? skeleton : pizzas}
+          {status === "rejected" && <PizzaNotFound />}
         </div>
       </div>
       <Pagination setCurrendPage={setCurrendPage} />
