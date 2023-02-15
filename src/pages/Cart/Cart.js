@@ -5,11 +5,12 @@ import CartItem from "./CartItem/CartItem";
 
 import { removeAllItems } from "../../redux/slices/CartSlice";
 import CartEmpty from "./CartEmpty/CartEmpty";
+import { selectCart } from "../../redux/slices/CartSlice";
 
 function Cart() {
-  const items = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
-  const { totalPrice, totalItems } = useSelector((state) => state.cart);
+
+  const { totalPrice, totalItems, items } = useSelector(selectCart);
 
   const clearCart = () => {
     if (window.confirm("Вы действительно хотите очистить карзину?")) {

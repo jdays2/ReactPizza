@@ -9,17 +9,21 @@ import Pagination from "./Pagination/Pagination";
 import { useSelector } from "react-redux";
 import { getPizzas } from "../../redux/slices/PizzaSlice";
 import { useDispatch } from "react-redux";
+import { selectFilterBySort } from "../../redux/slices/FilterSlice";
 import PizzaNotFound from "./PizzasNotFound/PizzasNotFound";
+import { selectCategory } from "../../redux/slices/CategorySlice";
 
 function Home() {
   const [currendPage, setCurrendPage] = React.useState(1);
   const dispatch = useDispatch();
   const currentValue = useSelector((state) => state.search.currentValue);
-  const categoryId = useSelector((state) => state.category.currentCategoryId);
-  const sort = useSelector((state) => state.filter.currentSortList.sort);
-  const category = categoryId > 0 ? `category=${categoryId}&` : "";
-  const paggination = `&page=${currendPage}&limit=4`;
+  const { currentCategoryId } = useSelector(selectCategory);
+  const sort = useSelector(selectFilterBySort);
   const { status, items } = useSelector((state) => state.pizza);
+
+  const category =
+    currentCategoryId > 0 ? `category=${currentCategoryId}&` : "";
+  const paggination = `&page=${currendPage}&limit=4`;
 
   React.useEffect(() => {
     dispatch(getPizzas({ sort, currentValue, paggination, category }));

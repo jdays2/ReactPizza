@@ -1,15 +1,16 @@
 import s from "./Categories.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrendCategoryId } from "../../redux/slices/CategorySlice";
+import {
+  setCurrendCategoryId,
+  selectCategory,
+} from "../../redux/slices/CategorySlice";
 
 import React from "react";
 
 function Categories() {
-  const categories = useSelector((state) => state.category.categories);
-  const currentCategory = useSelector(
-    (state) => state.category.currentCategoryId
-  );
   const dispatch = useDispatch();
+
+  const { categories, currentCategoryId } = useSelector(selectCategory);
 
   return (
     <div className="categories">
@@ -19,10 +20,10 @@ function Categories() {
             <li
               key={i}
               onClick={() => {
-                console.log(currentCategory);
+                console.log(currentCategoryId);
                 dispatch(setCurrendCategoryId(i));
               }}
-              className={currentCategory === i ? "active" : ""}
+              className={currentCategoryId === i ? "active" : ""}
             >
               {categoryName}
             </li>
