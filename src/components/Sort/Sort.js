@@ -1,13 +1,16 @@
 import React from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setSortList, isOpen } from "../../redux/slices/FilterSlice";
+import {
+  setSortList,
+  selectFilter,
+  isOpen,
+} from "../../redux/slices/FilterSlice";
 
 function Sort() {
   const dispatch = useDispatch();
-  const open = useSelector((state) => state.filter.isOpen);
-  const sortList = useSelector((state) => state.filter.sortList);
-  const currentList = useSelector((state) => state.filter.currentSortList);
+
+  const { isOpened, sortList, currentSortList } = useSelector(selectFilter);
 
   const sortRef = React.useRef();
 
@@ -41,21 +44,21 @@ function Sort() {
         <b>Сортировка по:</b>
         <span
           onClick={() => {
-            dispatch(isOpen(!open));
+            dispatch(isOpen(!isOpened));
           }}
         >
-          {currentList.name}
+          {currentSortList.name}
         </span>
       </div>
-      {open && (
+      {isOpened && (
         <div className="sort__popup">
           <ul>
             {sortList.map((s, i) => (
               <li
-                className={currentList.sort === s.sort ? "active" : ""}
+                className={currentSortList.sort === s.sort ? "active" : ""}
                 key={i}
                 onClick={() => {
-                  dispatch(isOpen(!open));
+                  dispatch(isOpen(!isOpened));
                   dispatch(setSortList(s));
                 }}
               >
