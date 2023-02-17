@@ -6,6 +6,7 @@ import "./scss/app.scss";
 
 import { Route, Routes } from "react-router-dom";
 import React from "react";
+import FullPizza from "./pages/FullPizza/FullPizza";
 
 function App() {
   const [searchValue, setSearchValue] = React.useState("");
@@ -16,13 +17,14 @@ function App() {
 
         <Routes>
           <Route
-            path={"/"}
+            path="/"
             element={
               <Home searchValue={searchValue} setSearchValue={setSearchValue} />
             }
           />
-          <Route path={"/cart"} element={<Cart />} />
-          <Route path={"*"} element={<NotFound />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/pizza/:id" element={<FullPizza />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </div>
