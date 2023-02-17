@@ -7,7 +7,7 @@ const initialState = {
     { name: "алфавиту", sort: "title" },
   ],
   currentSortList: { name: "популярности", sort: "rating" },
-  isOpen: false,
+  isOpened: false,
 };
 
 export const filterSlice = createSlice({
@@ -18,10 +18,13 @@ export const filterSlice = createSlice({
       state.currentSortList = action.payload;
     },
     isOpen(state, action) {
-      state.isOpen = action.payload;
+      state.isOpened = action.payload;
     },
   },
 });
+
+export const selectFilter = (state) => state.filter;
+export const selectFilterBySort = (state) => state.filter.currentSortList.sort;
 
 export const { setSortList, isOpen } = filterSlice.actions;
 export default filterSlice.reducer;
