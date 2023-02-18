@@ -12,31 +12,26 @@ import { useDispatch } from "react-redux";
 import { selectFilterBySort } from "../../redux/slices/FilterSlice";
 import PizzaNotFound from "./PizzasNotFound/PizzasNotFound";
 import { selectCategory } from "../../redux/slices/CategorySlice";
-import { Link } from "react-router-dom";
 
-function Home() {
+const Home: React.FC = () => {
   const [currendPage, setCurrendPage] = React.useState(1);
   const dispatch = useDispatch();
-  const currentValue = useSelector((state) => state.search.currentValue);
+  const currentValue = useSelector((state: any) => state.search.currentValue);
   const { currentCategoryId } = useSelector(selectCategory);
   const sort = useSelector(selectFilterBySort);
-  const { status, items } = useSelector((state) => state.pizza);
+  const { status, items } = useSelector((state: any) => state.pizza);
 
   const category =
     currentCategoryId > 0 ? `category=${currentCategoryId}&` : "";
   const paggination = `&page=${currendPage}&limit=4`;
 
   React.useEffect(() => {
+    //@ts-ignore
     dispatch(getPizzas({ sort, currentValue, paggination, category }));
     window.scroll(0, 0);
   }, [sort, currentValue, paggination, category]);
 
-  const pizzas = items.map((p) => (
-    <Link to={`/pizza/${p.id}`}>
-      {" "}
-      <PizzaBlock {...p} key={p.id} />
-    </Link>
-  ));
+  const pizzas = items.map((p: any) => <PizzaBlock {...p} key={p.id} />);
   const skeleton = [...new Array(6)].map((_, i) => (
     <PizzaBlockSkeleton key={i} />
   ));
@@ -57,6 +52,6 @@ function Home() {
       <Pagination setCurrendPage={setCurrendPage} />
     </div>
   );
-}
+};
 
 export default Home;

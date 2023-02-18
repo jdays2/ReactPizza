@@ -2,29 +2,29 @@ import styles from "./Search.module.scss";
 import searchIcon from "../../../assets/img/search-icon.svg";
 import closeIcon from "../../../assets/img/close-icon.svg";
 import React from "react";
-import { setCurrentValue } from "./../../../redux/slices/SearchSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { setCurrentValue } from "../../../redux/slices/SearchSlice";
+import { useDispatch } from "react-redux";
 import debounce from "lodash.debounce";
 
 function Search() {
   const dispatch = useDispatch();
   const [value, setValue] = React.useState("");
 
-  const inputRef = React.useRef();
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const clearSearchValue = () => {
     setValue("");
     updateSearchValue("");
-    inputRef.current.focus();
+    if (inputRef.current) inputRef.current.focus();
   };
 
-  const onChangeInput = (event) => {
+  const onChangeInput = (event: any) => {
     setValue(event.target.value);
     updateSearchValue(event.target.value);
   };
 
   const updateSearchValue = React.useCallback(
-    debounce((str) => {
+    debounce((str: any) => {
       dispatch(setCurrentValue(str));
     }, 300),
     []

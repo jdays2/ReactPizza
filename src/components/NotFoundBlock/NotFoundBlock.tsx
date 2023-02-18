@@ -1,6 +1,7 @@
 import styles from "./NotFoundBlock.module.scss";
+import React from "react";
 
-function NotFoundBlockInfo() {
+const NotFoundBlockInfo: React.FC = () => {
   return (
     <div className="content">
       <div className={styles.root}>
@@ -12,13 +13,9 @@ function NotFoundBlockInfo() {
         <p className={styles.discription}>
           К сожалению мы не можем ничего найти по вашему запросу.
         </p>
-        {/* <img
-        className={styles.img}
-        src="https://www.dominos.bg/images/error404.png"
-      /> */}
       </div>
     </div>
   );
-}
+};
 
 export default NotFoundBlockInfo;

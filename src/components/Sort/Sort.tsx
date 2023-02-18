@@ -7,15 +7,15 @@ import {
   isOpen,
 } from "../../redux/slices/FilterSlice";
 
-function Sort() {
+const Sort: React.FC = () => {
   const dispatch = useDispatch();
 
   const { isOpened, sortList, currentSortList } = useSelector(selectFilter);
 
-  const sortRef = React.useRef();
+  const sortRef = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: any) => {
       if (!event.composedPath().includes(sortRef.current))
         return dispatch(isOpen(false));
     };
@@ -53,7 +53,7 @@ function Sort() {
       {isOpened && (
         <div className="sort__popup">
           <ul>
-            {sortList.map((s, i) => (
+            {sortList.map((s: any, i: any) => (
               <li
                 className={currentSortList.sort === s.sort ? "active" : ""}
                 key={i}
@@ -70,6 +70,6 @@ function Sort() {
       )}
     </div>
   );
-}
+};
 
 export default Sort;

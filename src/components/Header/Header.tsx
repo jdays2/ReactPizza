@@ -5,6 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import Search from "./Search/Search";
 import { useSelector } from "react-redux";
 import { selectCart } from "../../redux/slices/CartSlice";
+import React from "react";
 
 function Header() {
   const cartCounter = useSelector(selectCart);

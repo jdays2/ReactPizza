@@ -1,13 +1,29 @@
-import {
-  removeItem,
-  minusItem,
-  plusItem,
-} from "../../../redux/slices/CartSlice";
+import { removeItem, plusItem } from "../../../redux/slices/CartSlice";
 import { useDispatch } from "react-redux";
-function CartItem({ id, title, type, sizes, imageUrl, price, count }) {
+import React from "react";
+
+type CartItemProps = {
+  id: string;
+  title: string;
+  type: string;
+  sizes: number;
+  imageUrl: string;
+  price: number;
+  count: number;
+};
+
+const CartItem: React.FC<CartItemProps> = ({
+  id,
+  title,
+  type,
+  sizes,
+  imageUrl,
+  price,
+  count,
+}) => {
   const dispatch = useDispatch();
 
-  const deleteItem = (id) => {
+  const deleteItem = (id: string) => {
     if (window.confirm("Вы уверены, что хотите удалить данный товар?")) {
       dispatch(removeItem(id));
     }
@@ -105,6 +121,6 @@ function CartItem({ id, title, type, sizes, imageUrl, price, count }) {
       </div>
     </div>
   );
-}
+};
 
 export default CartItem;
