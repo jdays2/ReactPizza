@@ -7,6 +7,11 @@ import {
   isOpen,
 } from "../../redux/slices/FilterSlice";
 
+type sortList = {
+  name: string;
+  sort: string;
+};
+
 const Sort: React.FC = () => {
   const dispatch = useDispatch();
 
@@ -25,6 +30,11 @@ const Sort: React.FC = () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
+  const onClickHandler = (s: sortList) => {
+    dispatch(isOpen(!isOpened));
+    dispatch(setSortList(s));
+  };
 
   return (
     <div className="sort" ref={sortRef}>
@@ -57,10 +67,7 @@ const Sort: React.FC = () => {
               <li
                 className={currentSortList.sort === s.sort ? "active" : ""}
                 key={i}
-                onClick={() => {
-                  dispatch(isOpen(!isOpened));
-                  dispatch(setSortList(s));
-                }}
+                onClick={() => onClickHandler(s)}
               >
                 {s.name}
               </li>
