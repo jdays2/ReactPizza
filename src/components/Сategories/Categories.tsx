@@ -7,7 +7,7 @@ import {
 
 import React from "react";
 
-function Categories() {
+const Categories: React.FC = () => {
   const dispatch = useDispatch();
 
   const { categories, currentCategoryId } = useSelector(selectCategory);
@@ -15,7 +15,7 @@ function Categories() {
   return (
     <div className="categories">
       <ul>
-        {categories.map((categoryName, i) => {
+        {categories.map((categoryName: any, i: any) => {
           return (
             <li
               key={i}
@@ -32,6 +32,6 @@ function Categories() {
       </ul>
     </div>
   );
-}
+};
 
 export default Categories;

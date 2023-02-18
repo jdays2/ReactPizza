@@ -1,5 +1,7 @@
 import styles from "./PizzaNotFound.module.css";
-function PizzaNotFound() {
+import React from "react";
+
+const PizzaNotFound: React.FC = () => {
   return (
     <div className={styles.content}>
       <div className={styles.content}>
@@ -12,6 +14,6 @@ function PizzaNotFound() {
       </div>
     </div>
   );
-}
+};
 
 export default PizzaNotFound;

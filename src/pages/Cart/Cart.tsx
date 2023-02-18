@@ -2,12 +2,12 @@ import styles from "./Cart.module.css";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./CartItem/CartItem";
-
-import { removeAllItems } from "../../redux/slices/CartSlice";
+import { removeAllItems, selectCart } from "../../redux/slices/CartSlice";
 import CartEmpty from "./CartEmpty/CartEmpty";
-import { selectCart } from "../../redux/slices/CartSlice";
 
-function Cart() {
+import React from "react";
+
+const Cart: React.FC = () => {
   const dispatch = useDispatch();
 
   const { totalPrice, totalItems, items } = useSelector(selectCart);
@@ -101,7 +101,7 @@ function Cart() {
             </div>
           </div>
 
-          {items.map((item) => (
+          {items.map((item: any) => (
             <CartItem {...item} key={item.id} />
           ))}
 
@@ -146,6 +146,6 @@ function Cart() {
       </div>
     </div>
   );
-}
+};
 
 export default Cart;
