@@ -3,9 +3,12 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import React from "react";
 
-function FullPizza() {
+const FullPizza: React.FC = () => {
   const { id } = useParams();
-  const [pizza, setPizza] = React.useState();
+  const [pizza, setPizza] = React.useState<{
+    imageUrl: string;
+    title: string;
+  }>();
 
   useEffect(() => {
     axios
@@ -14,7 +17,6 @@ function FullPizza() {
   }, [id]);
 
   if (pizza) {
-    console.log(pizza);
     return (
       <div>
         <img src={pizza.imageUrl} />
@@ -24,6 +26,6 @@ function FullPizza() {
   }
 
   return <div></div>;
-}
+};
 
 export default FullPizza;

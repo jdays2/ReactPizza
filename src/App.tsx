@@ -8,20 +8,14 @@ import { Route, Routes } from "react-router-dom";
 import React from "react";
 import FullPizza from "./pages/FullPizza/FullPizza";
 
-function App() {
-  const [searchValue, setSearchValue] = React.useState("");
+const App: React.FC = () => {
   return (
     <div className="App">
       <div className="wrapper">
-        <Header searchValue={searchValue} setSearchValue={setSearchValue} />
+        <Header />
 
         <Routes>
-          <Route
-            path="/"
-            element={
-              <Home searchValue={searchValue} setSearchValue={setSearchValue} />
-            }
-          />
+          <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/pizza/:id" element={<FullPizza />} />
           <Route path="*" element={<NotFound />} />
@@ -29,6 +23,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default App;

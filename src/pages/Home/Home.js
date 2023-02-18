@@ -12,7 +12,6 @@ import { useDispatch } from "react-redux";
 import { selectFilterBySort } from "../../redux/slices/FilterSlice";
 import PizzaNotFound from "./PizzasNotFound/PizzasNotFound";
 import { selectCategory } from "../../redux/slices/CategorySlice";
-import { Link } from "react-router-dom";
 
 function Home() {
   const [currendPage, setCurrendPage] = React.useState(1);
@@ -31,12 +30,7 @@ function Home() {
     window.scroll(0, 0);
   }, [sort, currentValue, paggination, category]);
 
-  const pizzas = items.map((p) => (
-    <Link to={`/pizza/${p.id}`}>
-      {" "}
-      <PizzaBlock {...p} key={p.id} />
-    </Link>
-  ));
+  const pizzas = items.map((p) => <PizzaBlock {...p} key={p.id} />);
   const skeleton = [...new Array(6)].map((_, i) => (
     <PizzaBlockSkeleton key={i} />
   ));
