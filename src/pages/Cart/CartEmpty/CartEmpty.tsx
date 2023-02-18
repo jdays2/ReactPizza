@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import emptyCartMiniature from "../../../assets/img/empty-cart.png";
+import React from "react";
 
-function CartEmpty() {
+const CartEmpty: React.FC = () => {
   return (
-    <div class="content">
-      <div class="container container--cart">
-        <div class="cart cart--empty">
+    <div className="content">
+      <div className="container container--cart">
+        <div className="cart cart--empty">
           <h2>
-            Корзина пустая <icon>😕</icon>
+            Корзина пустая <div>😕</div>
           </h2>
           <p>
             Вероятней всего, вы не заказывали ещё пиццу.
@@ -15,13 +16,13 @@ function CartEmpty() {
             Для того, чтобы заказать пиццу, перейди на главную страницу.
           </p>
           <img src={emptyCartMiniature} alt="Empty cart" />
-          <Link to="/" class="button button--black">
+          <Link to="/" className="button button--black">
             <span>Вернуться назад</span>
           </Link>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default CartEmpty;
