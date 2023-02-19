@@ -7,31 +7,32 @@ import Sort from "../../components/Sort/Sort";
 import React from "react";
 import Pagination from "./Pagination/Pagination";
 import { useSelector } from "react-redux";
-import { getPizzas } from "../../redux/slices/PizzaSlice";
-import { useDispatch } from "react-redux";
+import { getPizzas, Status } from "../../redux/slices/PizzaSlice";
+import { RootState, useAppDispatch } from "../../redux/store";
 import { selectFilterBySort } from "../../redux/slices/FilterSlice";
 import PizzaNotFound from "./PizzasNotFound/PizzasNotFound";
 import { selectCategory } from "../../redux/slices/CategorySlice";
 
 const Home: React.FC = () => {
   const [currendPage, setCurrendPage] = React.useState(1);
-  const dispatch = useDispatch();
-  const currentValue = useSelector((state: any) => state.search.currentValue);
+  const dispatch = useAppDispatch();
+  const currentValue = useSelector(
+    (state: RootState) => state.search.currentValue
+  );
   const { currentCategoryId } = useSelector(selectCategory);
   const sort = useSelector(selectFilterBySort);
-  const { status, items } = useSelector((state: any) => state.pizza);
+  const { status, items } = useSelector((state: RootState) => state.pizza);
 
   const category =
     currentCategoryId > 0 ? `category=${currentCategoryId}&` : "";
   const paggination = `&page=${currendPage}&limit=4`;
 
   React.useEffect(() => {
-    //@ts-ignore
     dispatch(getPizzas({ sort, currentValue, paggination, category }));
     window.scroll(0, 0);
   }, [sort, currentValue, paggination, category]);
 
-  const pizzas = items.map((p: any) => <PizzaBlock {...p} key={p.id} />);
+  const pizzas = items.map((p) => <PizzaBlock {...p} key={p.id} />);
   const skeleton = [...new Array(6)].map((_, i) => (
     <PizzaBlockSkeleton key={i} />
   ));
@@ -45,8 +46,8 @@ const Home: React.FC = () => {
         </div>
         <h2 className="content__title">Все пиццы</h2>
         <div className="content__items">
-          {status === "pending" ? skeleton : pizzas}
-          {status === "rejected" && <PizzaNotFound />}
+          {status === Status.LOAD ? skeleton : pizzas}
+          {status === Status.ERROR && <PizzaNotFound />}
         </div>
       </div>
       <Pagination setCurrendPage={setCurrendPage} />

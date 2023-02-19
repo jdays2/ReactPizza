@@ -1,22 +1,24 @@
 import React from "react";
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   setSortList,
   selectFilter,
   isOpen,
+  SortList,
 } from "../../redux/slices/FilterSlice";
+import { useAppDispatch } from "../../redux/store";
 
 const Sort: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { isOpened, sortList, currentSortList } = useSelector(selectFilter);
 
   const sortRef = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (!event.composedPath().includes(sortRef.current))
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sortRef.current && !event.composedPath().includes(sortRef.current))
         return dispatch(isOpen(false));
     };
 
@@ -25,6 +27,11 @@ const Sort: React.FC = () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
+  const onClickHandler = (s: SortList) => {
+    dispatch(isOpen(!isOpened));
+    dispatch(setSortList(s));
+  };
 
   return (
     <div className="sort" ref={sortRef}>
@@ -53,14 +60,11 @@ const Sort: React.FC = () => {
       {isOpened && (
         <div className="sort__popup">
           <ul>
-            {sortList.map((s: any, i: any) => (
+            {sortList.map((s, i: number) => (
               <li
                 className={currentSortList.sort === s.sort ? "active" : ""}
                 key={i}
-                onClick={() => {
-                  dispatch(isOpen(!isOpened));
-                  dispatch(setSortList(s));
-                }}
+                onClick={() => onClickHandler(s)}
               >
                 {s.name}
               </li>

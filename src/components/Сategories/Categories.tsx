@@ -9,20 +9,20 @@ import React from "react";
 
 const Categories: React.FC = () => {
   const dispatch = useDispatch();
-
   const { categories, currentCategoryId } = useSelector(selectCategory);
+
+  const onChangeCategory = (id: number) => {
+    dispatch(setCurrendCategoryId(id));
+  };
 
   return (
     <div className="categories">
       <ul>
-        {categories.map((categoryName: any, i: any) => {
+        {categories.map((categoryName: string, i: number) => {
           return (
             <li
               key={i}
-              onClick={() => {
-                console.log(currentCategoryId);
-                dispatch(setCurrendCategoryId(i));
-              }}
+              onClick={() => onChangeCategory(i)}
               className={currentCategoryId === i ? "active" : ""}
             >
               {categoryName}

@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { selectCart } from "../../redux/slices/CartSlice";
 import React from "react";
 
-function Header() {
+const Header: React.FC = () => {
   const cartCounter = useSelector(selectCart);
   const location = useLocation();
 
@@ -72,6 +72,6 @@ function Header() {
       </div>
     </div>
   );
-}
+};
 
 export default Header;

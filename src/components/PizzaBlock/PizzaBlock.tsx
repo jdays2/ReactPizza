@@ -2,7 +2,8 @@ import s from "./PizzaBlock.module.css";
 import { Link } from "react-router-dom";
 import React from "react";
 import { addItems } from "../../redux/slices/CartSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { RootState, useAppDispatch } from "../../redux/store";
 
 type PizzaBlockProps = {
   imageUrl: string;
@@ -22,9 +23,9 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
   id,
 }) => {
   const typeNames = ["тонкое", "традиционное"];
-  const dispatch = useDispatch();
-  const chosenPizzaCount = useSelector((state: any) =>
-    state.cart.items.find((obj: any) => obj.id === id)
+  const dispatch = useAppDispatch();
+  const chosenPizzaCount = useSelector((state: RootState) =>
+    state.cart.items.find((obj) => obj.id === id)
   );
   const count = chosenPizzaCount ? chosenPizzaCount.count : 0;
 
@@ -40,6 +41,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
       sizes: sizes[activeSize],
       imageUrl,
       price,
+      count: 0,
     };
     dispatch(addItems(item));
   };
