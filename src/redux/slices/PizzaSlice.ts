@@ -2,7 +2,13 @@ import { createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-type PizzaItem = {
+export enum Status {
+  LOAD = "loading",
+  SUCCESS = "success",
+  ERROR = "error",
+}
+
+export type PizzaItem = {
   id: string;
   imageUrl: string;
   title: string;
@@ -13,21 +19,28 @@ type PizzaItem = {
   rating: number;
 };
 
+type GetPizzaParams = {
+  sort: string;
+  currentValue: string;
+  paggination: string;
+  category: string;
+};
+
 interface PizzaState {
   items: PizzaItem[];
-  status: "loading" | "succes" | "error";
+  status: Status;
 }
 
 const initialState: PizzaState = {
   items: [],
-  status: "loading",
+  status: Status.LOAD,
 };
 
 export const getPizzas = createAsyncThunk(
   "pizza/fetchPizza",
-  async (params) => {
+  async (params: GetPizzaParams) => {
     const { sort, currentValue, paggination, category } = params;
-    const { data } = await axios.get(
+    const { data } = await axios.get<PizzaItem[]>(
       `https://63de555b9fa0d60060fce0cd.mockapi.io/api/items?${category}sortBy=${sort}&search=${currentValue}${paggination}`
     );
     return data;
@@ -38,19 +51,22 @@ export const pizzaSlice = createSlice({
   name: "pizza",
   initialState,
   reducers: {},
-  extraReducers: {
-    [getPizzas.pending]: (state) => {
+  extraReducers: (builder) => {
+    builder.addCase(getPizzas.pending, (state) => {
       state.items = [];
-      state.status = "pending";
-    },
-    [getPizzas.fulfilled]: (state, action: PayloadAction<PizzaItem>) => {
-      state.status = "fulfilled";
-      state.items = action.payload;
-    },
-    [getPizzas.rejected]: (state) => {
+      state.status = Status.LOAD;
+    });
+    builder.addCase(
+      getPizzas.fulfilled,
+      (state, action: PayloadAction<PizzaItem[]>) => {
+        state.status = Status.SUCCESS;
+        state.items = action.payload;
+      }
+    );
+    builder.addCase(getPizzas.rejected, (state) => {
       state.items = [];
-      state.status = "rejected";
-    },
+      state.status = Status.ERROR;
+    });
   },
 });
 

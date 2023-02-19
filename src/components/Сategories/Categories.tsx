@@ -18,7 +18,7 @@ const Categories: React.FC = () => {
   return (
     <div className="categories">
       <ul>
-        {categories.map((categoryName: any, i: number) => {
+        {categories.map((categoryName: string, i: number) => {
           return (
             <li
               key={i}
