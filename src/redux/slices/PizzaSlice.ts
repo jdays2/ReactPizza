@@ -1,10 +1,26 @@
+import { createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import produce from "immer";
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const initialState = {
+type PizzaItem = {
+  id: string;
+  imageUrl: string;
+  title: string;
+  types: number[];
+  sizes: number[];
+  price: number;
+  category: number;
+  rating: number;
+};
+
+interface PizzaState {
+  items: PizzaItem[];
+  status: "loading" | "succes" | "error";
+}
+
+const initialState: PizzaState = {
   items: [],
+  status: "loading",
 };
 
 export const getPizzas = createAsyncThunk(
@@ -27,7 +43,7 @@ export const pizzaSlice = createSlice({
       state.items = [];
       state.status = "pending";
     },
-    [getPizzas.fulfilled]: (state, action) => {
+    [getPizzas.fulfilled]: (state, action: PayloadAction<PizzaItem>) => {
       state.status = "fulfilled";
       state.items = action.payload;
     },

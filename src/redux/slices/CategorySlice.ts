@@ -1,6 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
-const initialState = {
+interface CategoryState {
+  categories: string[];
+  currentCategoryId: number;
+}
+
+const initialState: CategoryState = {
   categories: [
     "Все",
     "Мясные",
@@ -16,13 +22,13 @@ export const categorySlice = createSlice({
   name: "category",
   initialState,
   reducers: {
-    setCurrendCategoryId(state, action) {
+    setCurrendCategoryId(state, action: PayloadAction<number>) {
       state.currentCategoryId = action.payload;
     },
   },
 });
 
-export const selectCategory = (state) => state.category;
+export const selectCategory = (state: RootState) => state.category;
 
 export const { setCurrendCategoryId } = categorySlice.actions;
 export default categorySlice.reducer;

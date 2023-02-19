@@ -1,7 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import produce from "immer";
 
-const initialState = {
+interface SearchState {
+  currentValue: string;
+}
+
+const initialState: SearchState = {
   currentValue: "",
 };
 
@@ -9,10 +13,8 @@ export const searchSlice = createSlice({
   name: "search",
   initialState,
   reducers: {
-    setCurrentValue(state, action) {
+    setCurrentValue(state, action: PayloadAction<string>) {
       return produce(state, (draft) => {
-        console.log(action.payload);
-
         draft.currentValue = action.payload;
       });
     },
