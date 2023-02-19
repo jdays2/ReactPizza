@@ -367,3 +367,16 @@ body {
     }
   }
 }
+
+.minus {
+  opacity: 0.34;
+  transform: scale(0.9);
+}
+.minus:active {
+  transform: none;
+}
+.minus:hover {
+  transform: none;
+  cursor: default;
+  transform: scale(0.9);
+}
