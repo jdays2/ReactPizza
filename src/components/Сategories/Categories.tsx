@@ -7,7 +7,7 @@ import {
 
 import React from "react";
 
-const Categories: React.FC = () => {
+const Categories: React.FC = React.memo(() => {
   const dispatch = useDispatch();
   const { categories, currentCategoryId } = useSelector(selectCategory);
 
@@ -32,6 +32,5 @@ const Categories: React.FC = () => {
       </ul>
     </div>
   );
-};
-
+});
 export default Categories;
