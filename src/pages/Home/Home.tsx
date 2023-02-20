@@ -4,7 +4,7 @@ import PizzaBlockSkeleton from "../../components/PizzaBlock/PizzaBlockSkeleton";
 import Categories from "../../components/Сategories/Categories";
 import Sort from "../../components/Sort/Sort";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Pagination from "./Pagination/Pagination";
 import { useSelector } from "react-redux";
 import { getPizzas, Status } from "../../redux/slices/PizzaSlice";
