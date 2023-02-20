@@ -9,7 +9,7 @@ import {
 } from "../../redux/slices/FilterSlice";
 import { useAppDispatch } from "../../redux/store";
 
-const Sort: React.FC = () => {
+const Sort: React.FC = React.memo(() => {
   const dispatch = useAppDispatch();
 
   const { isOpened, sortList, currentSortList } = useSelector(selectFilter);
@@ -74,6 +74,6 @@ const Sort: React.FC = () => {
       )}
     </div>
   );
-};
+});
 
 export default Sort;

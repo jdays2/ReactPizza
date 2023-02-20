@@ -1,4 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { calcTotalItems } from "../../utils/calcTotalItems";
+import { calcTotalPrice } from "../../utils/calcTotalPrice";
+
+import { getPizzaByLS } from "../../utils/getPizzaByLS";
 import { RootState } from "../store";
 
 export type CartItem = {
@@ -22,10 +26,12 @@ interface CartState {
   totalItems: number;
 }
 
+const { items, totalPrice, totalItems } = getPizzaByLS();
+
 const initialState: CartState = {
-  items: [],
-  totalPrice: 0,
-  totalItems: 0,
+  items: items,
+  totalPrice: totalPrice,
+  totalItems: totalItems,
 };
 
 export const cartSlice = createSlice({
@@ -39,15 +45,10 @@ export const cartSlice = createSlice({
       } else {
         state.items.push({
           ...action.payload,
-          count: 1,
         });
       }
-      state.totalPrice = state.items.reduce((total, item) => {
-        return item.price * item.count + total;
-      }, 0);
-      state.totalItems = state.items.reduce((total, item) => {
-        return total + item.count;
-      }, 0);
+      state.totalPrice = calcTotalPrice(state.items);
+      state.totalItems = calcTotalItems(state.items);
     },
     removeAllItems(state) {
       state.items = [];
@@ -56,29 +57,20 @@ export const cartSlice = createSlice({
     },
     removeItem(state, action: PayloadAction<string>) {
       state.items = state.items.filter((e) => e.id !== action.payload);
-      state.totalPrice = state.items.reduce((total, item) => {
-        return item.price * item.count + total;
-      }, 0);
-      state.totalItems = state.items.reduce((total, item) => {
-        return total + item.count;
-      }, 0);
+      state.totalPrice = calcTotalPrice(state.items);
+      state.totalItems = calcTotalItems(state.items);
     },
     plusItem(state, action: PayloadAction<PlusMinus>) {
       const findeItem = state.items.find((obj) => obj.id === action.payload.id);
+
       if (findeItem && action.payload.value) {
         findeItem.count++;
-      } else if (findeItem) {
+      } else if (findeItem && findeItem.count !== 1) {
         findeItem.count--;
       }
-      if (findeItem && findeItem.count < 0) {
-        state.items = state.items.filter((e) => e !== findeItem);
-      }
-      state.totalPrice = state.items.reduce((total, item) => {
-        return item.price * item.count + total;
-      }, 0);
-      state.totalItems = state.items.reduce((total, item) => {
-        return total + item.count;
-      }, 0);
+
+      state.totalPrice = calcTotalPrice(state.items);
+      state.totalItems = calcTotalItems(state.items);
     },
   },
 });
