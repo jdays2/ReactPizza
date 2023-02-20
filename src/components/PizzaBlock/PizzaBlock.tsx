@@ -41,7 +41,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
       sizes: sizes[activeSize],
       imageUrl,
       price,
-      count: 0,
+      count: 1,
     };
     dispatch(addItems(item));
   };

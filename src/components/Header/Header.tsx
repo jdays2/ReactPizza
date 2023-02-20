@@ -14,8 +14,11 @@ const Header: React.FC = () => {
   const isMount = useRef(false);
 
   useEffect(() => {
-    const json = JSON.stringify(cartCounter.items);
-    localStorage.setItem("cart", json);
+    if (isMount.current) {
+      const json = JSON.stringify(cartCounter.items);
+      localStorage.setItem("cart", json);
+    }
+    isMount.current = true;
   }, [cartCounter.items]);
 
   return (

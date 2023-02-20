@@ -29,9 +29,9 @@ interface CartState {
 const { items, totalPrice, totalItems } = getPizzaByLS();
 
 const initialState: CartState = {
-  items,
-  totalPrice,
-  totalItems,
+  items: items,
+  totalPrice: totalPrice,
+  totalItems: totalItems,
 };
 
 export const cartSlice = createSlice({
