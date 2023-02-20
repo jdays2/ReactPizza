@@ -1,12 +1,10 @@
 import React from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import {
-  setSortList,
-  selectFilter,
-  isOpen,
-  SortList,
-} from "../../redux/slices/FilterSlice";
+import { selectFilter } from "../../redux/filter/selectors";
+import { isOpen, setSortList } from "../../redux/filter/slice";
+import { SortList } from "../../redux/filter/types";
+
 import { useAppDispatch } from "../../redux/store";
 
 const Sort: React.FC = React.memo(() => {

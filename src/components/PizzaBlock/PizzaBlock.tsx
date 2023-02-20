@@ -1,9 +1,9 @@
-import s from "./PizzaBlock.module.css";
 import { Link } from "react-router-dom";
 import React from "react";
-import { addItems } from "../../redux/slices/CartSlice";
+
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
+import { addItems } from "../../redux/cart/slice";
 
 type PizzaBlockProps = {
   imageUrl: string;

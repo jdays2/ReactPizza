@@ -2,9 +2,10 @@ import styles from "./Search.module.scss";
 import searchIcon from "../../../assets/img/search-icon.svg";
 import closeIcon from "../../../assets/img/close-icon.svg";
 import React from "react";
-import { setCurrentValue } from "../../../redux/slices/SearchSlice";
+
 import { useDispatch } from "react-redux";
 import debounce from "lodash.debounce";
+import { setCurrentValue } from "../../../redux/search/slice";
 
 const Search: React.FC = () => {
   const dispatch = useDispatch();

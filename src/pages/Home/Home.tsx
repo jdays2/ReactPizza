@@ -1,4 +1,3 @@
-import s from "./Home.module.css";
 import PizzaBlock from "../../components/PizzaBlock/PizzaBlock";
 import PizzaBlockSkeleton from "../../components/PizzaBlock/PizzaBlockSkeleton";
 import Categories from "../../components/Сategories/Categories";
@@ -6,12 +5,13 @@ import Sort from "../../components/Sort/Sort";
 
 import Pagination from "./Pagination/Pagination";
 import { useSelector } from "react-redux";
-import { getPizzas, Status } from "../../redux/slices/PizzaSlice";
 import { RootState, useAppDispatch } from "../../redux/store";
-import { selectFilterBySort } from "../../redux/slices/FilterSlice";
 import PizzaNotFound from "./PizzasNotFound/PizzasNotFound";
-import { selectCategory } from "../../redux/slices/CategorySlice";
 import React from "react";
+import { selectCategory } from "../../redux/category/selectors";
+import { selectFilterBySort } from "../../redux/filter/selectors";
+import { getPizzas } from "../../redux/pizza/asyncActions";
+import { Status } from "../../redux/pizza/types";
 
 const Home: React.FC = () => {
   const [currendPage, setCurrendPage] = React.useState(1);
