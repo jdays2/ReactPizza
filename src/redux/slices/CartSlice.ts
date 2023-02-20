@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { calcTotalItems } from "../../utils/calcTotalItems";
+import { calcTotalPrice } from "../../utils/calcTotalPrice";
+
 import { getPizzaByLS } from "../../utils/getPizzaByLS";
 import { RootState } from "../store";
 
@@ -24,10 +26,12 @@ interface CartState {
   totalItems: number;
 }
 
+const { items, totalPrice, totalItems } = getPizzaByLS();
+
 const initialState: CartState = {
-  items: getPizzaByLS(),
-  totalPrice: calcTotalPrice(),
-  totalItems: calcTotalItems(),
+  items,
+  totalPrice,
+  totalItems,
 };
 
 export const cartSlice = createSlice({
@@ -41,11 +45,10 @@ export const cartSlice = createSlice({
       } else {
         state.items.push({
           ...action.payload,
-          count: 1,
         });
       }
-      state.totalPrice = calcTotalPrice();
-      state.totalItems = calcTotalItems();
+      state.totalPrice = calcTotalPrice(state.items);
+      state.totalItems = calcTotalItems(state.items);
     },
     removeAllItems(state) {
       state.items = [];
@@ -54,8 +57,8 @@ export const cartSlice = createSlice({
     },
     removeItem(state, action: PayloadAction<string>) {
       state.items = state.items.filter((e) => e.id !== action.payload);
-      state.totalPrice = calcTotalPrice();
-      state.totalItems = calcTotalItems();
+      state.totalPrice = calcTotalPrice(state.items);
+      state.totalItems = calcTotalItems(state.items);
     },
     plusItem(state, action: PayloadAction<PlusMinus>) {
       const findeItem = state.items.find((obj) => obj.id === action.payload.id);
@@ -66,8 +69,8 @@ export const cartSlice = createSlice({
         findeItem.count--;
       }
 
-      state.totalPrice = calcTotalPrice();
-      state.totalItems = calcTotalItems();
+      state.totalPrice = calcTotalPrice(state.items);
+      state.totalItems = calcTotalItems(state.items);
     },
   },
 });
@@ -77,6 +80,3 @@ export const selectCart = (state: RootState) => state.cart;
 export const { addItems, removeAllItems, removeItem, plusItem } =
   cartSlice.actions;
 export default cartSlice.reducer;
-function calcTotalPrice(): number {
-  throw new Error("Function not implemented.");
-}
