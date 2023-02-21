@@ -1,11 +1,11 @@
-import s from "./Header.module.css";
 import logoSvg from "../../assets/img/pizza-logo.svg";
 
 import { Link, useLocation } from "react-router-dom";
 import Search from "./Search/Search";
 import { useSelector } from "react-redux";
-import { selectCart } from "../../redux/slices/CartSlice";
+
 import React, { useEffect, useRef } from "react";
+import { selectCart } from "../../redux/cart/selectors";
 
 const Header: React.FC = () => {
   const cartCounter = useSelector(selectCart);
@@ -33,7 +33,7 @@ const Header: React.FC = () => {
             </div>
           </div>
         </Link>
-        <Search />
+        {location.pathname !== "/cart" && <Search />}
 
         <Link to="/cart">
           <div className="header__cart">

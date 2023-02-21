@@ -1,9 +1,7 @@
-import s from "./PizzaBlock.module.css";
-import { Link } from "react-router-dom";
 import React from "react";
-import { addItems } from "../../redux/slices/CartSlice";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
+import { addItems } from "../../redux/cart/slice";
 
 type PizzaBlockProps = {
   imageUrl: string;
@@ -49,10 +47,9 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
   return (
     <div className="pizza-block__wrapper">
       <div className="pizza-block">
-        <Link to={`/pizza/${id}`}>
-          <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-          <h4 className="pizza-block__title">{title}</h4>
-        </Link>
+        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+        <h4 className="pizza-block__title">{title}</h4>
+
         <div className="pizza-block__selector">
           <ul>
             {types.map((t, i) => {

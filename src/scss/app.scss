@@ -380,3 +380,20 @@ body {
   cursor: default;
   transform: scale(0.9);
 }
+
+.cart--empty {
+  h2 {
+    font-size: 43px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 19px;
+  }
+  .emoji {
+    font-size: 40px;
+  }
+  p {
+    margin-top: 10px;
+    font-size: 23px;
+  }
+}

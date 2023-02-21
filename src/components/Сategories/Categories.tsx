@@ -1,11 +1,8 @@
-import s from "./Categories.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setCurrendCategoryId,
-  selectCategory,
-} from "../../redux/slices/CategorySlice";
 
 import React from "react";
+import { selectCategory } from "../../redux/category/selectors";
+import { setCurrendCategoryId } from "../../redux/category/slice";
 
 const Categories: React.FC = React.memo(() => {
   const dispatch = useDispatch();

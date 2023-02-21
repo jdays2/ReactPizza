@@ -1,6 +1,5 @@
-import styles from "./NotFound.module.css";
-import NotFoundBlockInfo from "../../components/NotFoundBlock/NotFoundBlock";
 import React from "react";
+import NotFoundBlockInfo from "./NotFoundBlock/NotFoundBlock";
 
 const NotFound: React.FC = () => <NotFoundBlockInfo />;
 

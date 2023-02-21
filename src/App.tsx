@@ -6,7 +6,6 @@ import "./scss/app.scss";
 
 import { Route, Routes } from "react-router-dom";
 import React from "react";
-import FullPizza from "./pages/FullPizza/FullPizza";
 
 const App: React.FC = () => {
   return (
@@ -17,7 +16,6 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/pizza/:id" element={<FullPizza />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
