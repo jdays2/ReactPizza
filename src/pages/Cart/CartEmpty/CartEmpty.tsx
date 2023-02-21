@@ -7,9 +7,8 @@ const CartEmpty: React.FC = () => {
     <div className="content">
       <div className="container container--cart">
         <div className="cart cart--empty">
-          <h2>
-            Корзина пустая <div>😕</div>
-          </h2>
+          <h2>Корзина пустая</h2>
+          <span className="emoji">😕</span>
           <p>
             Вероятней всего, вы не заказывали ещё пиццу.
             <br />
